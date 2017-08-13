@@ -1,4 +1,19 @@
 //KLEIN v. 3.3
+/*
+TODO IN THIS VERSION:
+
+-If buyer submits more ETH than there are tokens available, contract pays out all available IKB and returns change
+-
+
+
+FOR TESTING:
+
+-Try to send more ETH than there are corresponding to the price of all IKB remaining.
+    -Do you get the remaining IKB?
+    -Do you get change?
+
+
+*/
 
 pragma solidity ^0.4.15;
 
@@ -152,23 +167,6 @@ contract Klein is StandardToken, SafeMath, owned {
                         series[7].seriesSupply;
         }
         
-        //getters
-        function totalSupply() constant returns (uint256 totalSupply) {
-          totalSupply = maxSupplyPossible;
-          return totalSupply;
-      }
-      
-      //is this necessary
-        function currentSeries() constant returns (uint8){
-            return currentSeries;
-        }
-        
-        //this is a test
-        function stillAvailable() constant returns (uint256){
-            return balances[this];
-        }
-        
-        
         
         function issueNewSeries() onlyOwner returns (string){
             
@@ -199,7 +197,7 @@ contract Klein is StandardToken, SafeMath, owned {
                 amount = balances[this];
                 msg.sender.transfer(returnable);
             }
-            if (balances[this] < amount) revert();                      // checks if it has enough to sell
+            if (balances[this] < amount) revert();                      // checks if it has enough to sell. Essentially a double-check after the last block of code
             balances[msg.sender] += amount;                              // adds the amount to buyer's balance
             balances[this] -= amount;                                   // subtracts amount from seller's balance
             Transfer(this, msg.sender, amount);                     // execute an event reflecting the change
