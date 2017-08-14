@@ -1,17 +1,11 @@
 //KLEIN v. 3.3
+
 /*
-TODO IN THIS VERSION:
-
--If buyer submits more ETH than there are tokens available, contract pays out all available IKB and returns change
--
-
-
-FOR TESTING:
-
--Try to send more ETH than there are corresponding to the price of all IKB remaining.
-    -Do you get the remaining IKB?
-    -Do you get change?
-
+CHANGELOG:
+-If sender tries to buy more tokens than are avaialable, conntract now gives all available tokens and returns change. NOTE: I have security questions about giving change.
+-Added constant queriable value for swarm address
+-Creates a record of every transaction
+-buy() returns array of which editions you purchased, instead of amount
 
 */
 
@@ -45,15 +39,6 @@ contract owned {
     function owned() {
         owner = msg.sender;
     }
-
-    // This contract only defines a modifier but does not use
-    // it - it will be used in derived contracts.
-    // The function body is inserted where the special symbol
-    // "_;" in the definition of a modifier appears.
-    // This means that if the owner calls this function, the
-    // function is executed and otherwise, an exception is
-    // thrown.
-    // http://solidity.readthedocs.io/en/develop/contracts.html#function-modifiers
 
     modifier onlyOwner {
         if (msg.sender != owner) revert();
@@ -122,18 +107,20 @@ contract StandardToken is ERC20 {
 
 contract Klein is StandardToken, SafeMath, owned {
     
+    //The Swarm address of the artwork should be saved here in the contract
+    //Interesting: I wanted to save this as a bytes but got an error. string seems to be acceptable
+    string public constant zonesSwarmAddress = "0a52f265d8d60a89de41a65069fa472ac3b130c269b4788811220b6546784920";
     string public constant name = "Digital Zone of Immaterial Pictorial Sensibility";
     string public constant symbol = "IKB";
     uint8 public constant decimals = 0;
     uint256 public maxSupplyPossible;
     bool first = true;
     uint256 public saleStartTime;
-    uint256 public initialPrice = 10**16;
+    uint256 public initialPrice = 10**16;	// IMPORTANT!!! DON'T FORGET TO CHANGE THIS WHEN YOU UPLOAD FINAL VERSION!!!
    
     uint8 public currentSeries;
     
     uint8 public issuedToDate;
-    uint8 public currentlyAvailable;
     uint8 public totalSold;
     uint8 public burnedToDate;
    
@@ -144,27 +131,37 @@ contract Klein is StandardToken, SafeMath, owned {
         uint256 price;
         uint8 seriesSupply;
     }
-    
-    IKBSeries[8] public series;                             // An array of all 8 series
+
+ IKBSeries[8] public series;                             				// An array of all 8 series
+
+    struct record {
+    	uint8 edition;
+    	address addr;
+    	uint256 price;
+    	bytes4 signature; // will be msg.sig
+    }
+    				
+ record[101] public records;  											// An array of all 101 records
     
     
         /* Initializes contract with initial supply tokens to the creator of the contract */
         function Klein(uint256 _saleStartTime) {
             saleStartTime = _saleStartTime;
             currentSeries = 0;
-            series[0] = IKBSeries(initialPrice, 31);            // the first series has unique values...
-            for(uint i = 1; i < series.length; i++){                            // ...while the next 7 can be defined in a for loop
+            series[0] = IKBSeries(initialPrice, 31);            		// the first series has unique values...
+            for(uint i = 1; i < series.length; i++){                    // ...while the next 7 can be defined in a for loop
                 series[i] = IKBSeries(series[i-1].price*2, 10);
-            }
-            
+            }            
             maxSupplyPossible = series[0].seriesSupply + 
-                        series[1].seriesSupply + 
-                        series[2].seriesSupply + 
-                        series[3].seriesSupply + 
-                        series[4].seriesSupply + 
-                        series[5].seriesSupply + 
-                        series[6].seriesSupply + 
-                        series[7].seriesSupply;
+		                        series[1].seriesSupply + 
+		                        series[2].seriesSupply + 
+		                        series[3].seriesSupply + 
+		                        series[4].seriesSupply + 
+		                        series[5].seriesSupply + 
+		                        series[6].seriesSupply + 
+		                        series[7].seriesSupply;
+            totalSold = 0;
+            burnedToDate = 0;
         }
         
         
@@ -186,22 +183,34 @@ contract Klein is StandardToken, SafeMath, owned {
             return "Created Series";
         }
     
-        function buy() payable returns (uint){
+        function buy() payable returns (uint8[]){
             //this function is probably OK
             uint amount = msg.value / series[currentSeries].price;      // calculates the number of tokens the sender will buy
+            uint8[] memory editionsPurchased = new uint8[](amount);
             if(balances[this] == 0) revert();
             if(msg.value == 0) revert();
             if (balances[this] < amount && balances[this] > 1) {        // this section handles what happens if someone tries to buy more than the currently available supply
                 uint256 receivable = safeMult(balances[this], series[currentSeries].price);
                 uint256 returnable = msg.value - receivable;
-                amount = balances[this];
-                msg.sender.transfer(returnable);
+                amount = balances[this];		
+                if(!msg.sender.send(returnable)) revert();							//IMPORTANT QUESTION: Is this a security risk? If the buy() function is called from a contract address rather than a wallet address, it may not have a fallback function. It could trap my send in malicious code...
             }
             if (balances[this] < amount) revert();                      // checks if it has enough to sell. Essentially a double-check after the last block of code
-            balances[msg.sender] += amount;                              // adds the amount to buyer's balance
+            balances[msg.sender] += amount;                             // adds the amount to buyer's balance
             balances[this] -= amount;                                   // subtracts amount from seller's balance
-            Transfer(this, msg.sender, amount);                     // execute an event reflecting the change
-            return amount;                                          // ends function and returns
+            Transfer(this, msg.sender, amount);                     	// execute an event reflecting the change
+
+            //now let's make a record of every sale
+            for(uint8 k = 0; k < amount; k++){
+            	records[totalSold].edition = totalSold;
+            	records[totalSold].addr = msg.sender;
+            	records[totalSold].price = series[currentSeries].price;
+            	records[totalSold].signature = msg.sig;
+            	editionsPurchased[k] = totalSold;
+            	totalSold++;
+            }
+
+            return editionsPurchased;                                          	// ends function and returns
         }
         
         function redeemEther() onlyOwner{
