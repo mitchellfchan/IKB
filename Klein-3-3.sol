@@ -163,6 +163,11 @@ contract Klein is StandardToken, SafeMath, owned {
             totalSold = 0;
             burnedToDate = 0;
         }
+
+        function totalSupply() constant returns (uint256 totalSupply) {
+          totalSupply = maxSupplyPossible;
+          return totalSupply;
+        }
         
         
         function issueNewSeries() onlyOwner returns (string){
