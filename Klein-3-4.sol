@@ -2,10 +2,11 @@
 
 /*
 CHANGELOG:
--If sender tries to buy more tokens than are avaialable, conntract now gives all available tokens and returns change. NOTE: I have security questions about giving change.
--Added constant queriable value for swarm address
--Creates a record of every transaction
--buy() returns array of which editions you purchased, instead of amount
+-transfers affect records
+-trasnferTo affects records
+-removed signature from records
+-added fallback function
+-created ritual
 
 LEARNED:
 -signature is useless
@@ -66,29 +67,6 @@ contract ERC20 {
 
 contract StandardToken is ERC20 {
 
-    function transfer(address _to, uint256 _value) returns (bool success) {
-      if (balances[msg.sender] >= _value && _value > 0) {
-        balances[msg.sender] -= _value;
-        balances[_to] += _value;
-        Transfer(msg.sender, _to, _value);
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-    function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {
-      if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && _value > 0) {
-        balances[_to] += _value;
-        balances[_from] -= _value;
-        allowed[_from][msg.sender] -= _value;
-        Transfer(_from, _to, _value);
-        return true;
-      } else {
-        return false;
-      }
-    }
-
     function balanceOf(address _owner) constant returns (uint256 balance) {
         return balances[_owner];
     }
@@ -119,7 +97,7 @@ contract Klein is StandardToken, SafeMath, owned {
     uint256 public maxSupplyPossible;
     bool first = true;
     uint256 public saleStartTime;
-    uint256 public initialPrice = 10**16;	// IMPORTANT!!! DON'T FORGET TO CHANGE THIS WHEN YOU UPLOAD FINAL VERSION!!!
+    uint256 public initialPrice = 10**16;   // IMPORTANT!!! DON'T FORGET TO CHANGE THIS WHEN YOU UPLOAD FINAL VERSION!!!
    
     uint8 public currentSeries;
     
@@ -135,34 +113,34 @@ contract Klein is StandardToken, SafeMath, owned {
         uint8 seriesSupply;
     }
 
- IKBSeries[8] public series;                             				// An array of all 8 series
+ IKBSeries[8] public series;                                            // An array of all 8 series
 
     struct record {
-    	uint8 edition;
-    	address addr;
-    	uint256 price;
-    	bytes4 signature; // will be msg.sig
+        uint8 edition;
+        address addr;
+        uint256 price;
+        bool burned;
     }
-    				
- record[101] public records;  											// An array of all 101 records
+                    
+ record[101] public records;                                            // An array of all 101 records
     
     
         /* Initializes contract with initial supply tokens to the creator of the contract */
         function Klein(uint256 _saleStartTime) {
             saleStartTime = _saleStartTime;
             currentSeries = 0;
-            series[0] = IKBSeries(initialPrice, 31);            		// the first series has unique values...
+            series[0] = IKBSeries(initialPrice, 31);                    // the first series has unique values...
             for(uint i = 1; i < series.length; i++){                    // ...while the next 7 can be defined in a for loop
                 series[i] = IKBSeries(series[i-1].price*2, 10);
             }            
             maxSupplyPossible = series[0].seriesSupply + 
-		                        series[1].seriesSupply + 
-		                        series[2].seriesSupply + 
-		                        series[3].seriesSupply + 
-		                        series[4].seriesSupply + 
-		                        series[5].seriesSupply + 
-		                        series[6].seriesSupply + 
-		                        series[7].seriesSupply;
+                                series[1].seriesSupply + 
+                                series[2].seriesSupply + 
+                                series[3].seriesSupply + 
+                                series[4].seriesSupply + 
+                                series[5].seriesSupply + 
+                                series[6].seriesSupply + 
+                                series[7].seriesSupply;
             totalSold = 0;
             burnedToDate = 0;
         }
@@ -190,6 +168,24 @@ contract Klein is StandardToken, SafeMath, owned {
     
             return "Created Series";
         }
+
+        function specificTransfer(address _to, uint256 _value) returns (bool success) {
+            if (balances[msg.sender] >= _value && _value > 0) {
+                uint8 transferredRecord;                                //search for the highest-indexed edition owned by the sender
+                
+                for(uint8 k = 0; k < records.length; k++){
+                    if(records[k].addr == msg.sender) transferredRecord == k;
+                }
+        
+                balances[msg.sender] -= _value;
+                balances[_to] += _value;
+                records[transferredRecord].addr = msg.sender;           // update the records so that the record shows this person owns the 
+                Transfer(msg.sender, _to, _value);
+                return true;
+            } else {
+                return false;
+          }
+        }
     
         function buy() payable returns (uint8[]){
             //this function is probably OK
@@ -200,26 +196,85 @@ contract Klein is StandardToken, SafeMath, owned {
             if (balances[this] < amount && balances[this] > 1) {        // this section handles what happens if someone tries to buy more than the currently available supply
                 uint256 receivable = safeMult(balances[this], series[currentSeries].price);
                 uint256 returnable = msg.value - receivable;
-                amount = balances[this];		
-                if(!msg.sender.send(returnable)) revert();							//IMPORTANT QUESTION: Is this a security risk? If the buy() function is called from a contract address rather than a wallet address, it may not have a fallback function. It could trap my send in malicious code...
+                amount = balances[this];        
+                if(!msg.sender.send(returnable)) revert();                          //IMPORTANT QUESTION: Is this a security risk? If the buy() function is called from a contract address rather than a wallet address, it may not have a fallback function. It could trap my send in malicious code...
             }
             if (balances[this] < amount) revert();                      // checks if it has enough to sell. Essentially a double-check after the last block of code
             balances[msg.sender] += amount;                             // adds the amount to buyer's balance
             balances[this] -= amount;                                   // subtracts amount from seller's balance
-            Transfer(this, msg.sender, amount);                     	// execute an event reflecting the change
+            Transfer(this, msg.sender, amount);                         // execute an event reflecting the change
 
             //now let's make a record of every sale
             for(uint8 k = 0; k < amount; k++){
-            	records[totalSold].edition = totalSold;
-            	records[totalSold].addr = msg.sender;
-            	records[totalSold].price = series[currentSeries].price;
-            	records[totalSold].signature = msg.sig;
-            	editionsPurchased[k] = totalSold;
-            	totalSold++;
+                records[totalSold].edition = totalSold;
+                records[totalSold].addr = msg.sender;
+                records[totalSold].price = series[currentSeries].price;
+                records[totalSold].burned = false;
+                editionsPurchased[k] = totalSold;
+                totalSold++;
             }
 
-            return editionsPurchased;                                          	// ends function and returns
+            return editionsPurchased;                                           // ends function and returns
         }
+        
+            function transfer(address _to, uint256 _value) returns (bool success) {
+      if (balances[msg.sender] >= _value && _value > 0) {
+
+        uint8[] memory transferredRecord = new uint8[](_value);                                        // make an array for all the records we're going to transfer
+        uint8 recordCounter = 0;                                                    // remember how many records we've already transferred
+                                                                                    // search for the lowest-indexed edition owned by the sender
+        for(uint8 k = 0; k < records.length; k++){                                  // go through all the records
+            while(recordCounter < _value){                                          // do this for as long as there are tokens we're transferring
+                if(records[k].addr == msg.sender && records[k].burned == false) {   // when you find a non- burned record that belongs to the sender
+                    transferredRecord[recordCounter] == k;                          // store that record index in the transferredRecord array
+                    recordCounter++;                                                // remember that you changed one record
+                }                                                                   //
+            }                                                                       //
+        }                                                                           //
+
+        balances[msg.sender] -= _value;
+        balances[_to] += _value;
+
+        for(uint8 j = 0; j < _value; j++){                                          // for every token that was transferred
+            records[transferredRecord[j]].addr = msg.sender;                        // update the records so that the record shows this person owns the 
+        }                                                                           // 
+                                                                                 
+        Transfer(msg.sender, _to, _value);
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+
+    function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {
+      if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && _value > 0) {
+        uint[] memory transferredRecord = new uint[](_value);                            // make an array for all the records we're going to transfer
+        uint8 recordCounter = 0;                                                    // remember how many records we've already transferred
+                                                                                    // search for the lowest-indexed edition owned by the sender
+        for(uint8 k = 0; k < records.length; k++){                                  // go through all the records
+            while(recordCounter < _value){                                          // do this for as long as there are tokens we're transferring
+                if(records[k].addr == msg.sender && records[k].burned == false) {   // when you find a non- burned record that belongs to the sender
+                    transferredRecord[recordCounter] == k;                          // store that record index in the transferredRecord array
+                    recordCounter++;                                                // remember that you changed one record
+                }                                                                   //
+            }                                                                       //
+        }                                                                           //
+        
+        balances[_to] += _value;
+        balances[_from] -= _value;
+        allowed[_from][msg.sender] -= _value;
+
+        for(uint8 j = 0; j < _value; j++){                                          // for every token that was transferred
+            records[transferredRecord[j]].addr = msg.sender;                        // update the records so that the record shows this person owns the 
+        }                                                                           //
+                                                                              
+        Transfer(_from, _to, _value);
+        return true;
+      } else {
+        return false;
+      }
+    }
         
         function redeemEther() onlyOwner{
             //we can leave this blank for a while. This is lowest priority.
@@ -231,18 +286,21 @@ contract Klein is StandardToken, SafeMath, owned {
         function fund() payable onlyOwner{
         }
         
-        function ritual() constant returns (string){
-            
-            return ("Klein");
-            //any user can call this function
-            //their token is destroyed
-                    //totalBurned++
-                    
-            //we have a smart way of throwing away half the ETH the paid
-                //how do we know how much ETH they paid???
-                    //can we bind information to the token?
-                    //research swarm
-                    //when a purchaser buys a token, the 
+        function ritual(uint8 _edition) returns (string){
+
+            if(records[_edition].edition == _edition && records[_edition].addr == msg.sender && !records[_edition].burned){
+                records[_edition].burned = true;
+                burnedToDate++;
+                balances[msg.sender]--;
+                uint256 halfTheGold = records[_edition].price/2;
+                if(!block.coinbase.send(halfTheGold)) revert();
+            } else revert();
+
+            return ("Mitchell F Chan");
+        }
+
+        function() payable {
+            buy();
         }
 }
     
