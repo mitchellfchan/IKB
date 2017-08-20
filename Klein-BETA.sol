@@ -1,12 +1,20 @@
-//KLEIN v. 3.3
+//KLEIN v. 3.94
 
 /*
+
+
+/*
+[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"issueNewSeries","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"totalSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_edition","type":"uint8"}],"name":"ritual","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"saleStartTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"initialPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"records","outputs":[{"name":"addr","type":"address"},{"name":"price","type":"uint256"},{"name":"burned","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_edition","type":"uint256"}],"name":"specificTransfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"currentSeries","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"searchedRecord","type":"uint8"}],"name":"getTokenHolder","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxSupplyPossible","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSold","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"zonesSwarmAddress","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buy","outputs":[{"name":"","type":"uint256[]"}],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"fund","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"issuedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"series","outputs":[{"name":"price","type":"uint256"},{"name":"seriesSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"redeemEther","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"burnedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_saleStartTime","type":"uint256"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"IKBedition","type":"uint256"},{"indexed":false,"name":"holderAddress","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"burned","type":"bool"}],"name":"UpdateRecord","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}]
+
+POSSIBLE FIXES:
+make sure all uint8s and uint256s line up
+
+TODO:
+event for transfer
+event for specificTransfer
+
 CHANGELOG:
--transfers affect records
--trasnferTo affects records
--removed signature from records
--added fallback function
--created ritual
+-in specificTransfer(), changed _value to edition
 
 LEARNED:
 -signature is useless
@@ -22,19 +30,19 @@ contract SafeMath {
       uint256 z = x + y;
       assert((z >= x) && (z >= y));
       return z;
-    }
+  }
 
-    function safeSubtract(uint256 x, uint256 y) internal returns(uint256) {
+  function safeSubtract(uint256 x, uint256 y) internal returns(uint256) {
       assert(x >= y);
       uint256 z = x - y;
       return z;
-    }
+  }
 
-    function safeMult(uint256 x, uint256 y) internal returns(uint256) {
+  function safeMult(uint256 x, uint256 y) internal returns(uint256) {
       uint256 z = x * y;
       assert((x == 0)||(z/x == y));
       return z;
-    }
+  }
 }
 
 contract owned {
@@ -79,233 +87,231 @@ contract StandardToken is ERC20 {
 
     function allowance(address _owner, address _spender) constant returns (uint256 remaining) {
       return allowed[_owner][_spender];
-    }
+  }
 
-    // mapping (address => uint256) public balanceOf;
-    mapping (address => uint256) balances;
-    mapping (address => mapping (address => uint256)) allowed;
+  // mapping (address => uint256) public balanceOf;
+  mapping (address => uint256) balances;
+  mapping (address => mapping (address => uint256)) allowed;
 }
 
 contract Klein is StandardToken, SafeMath, owned {
-    
+
     //The Swarm address of the artwork should be saved here in the contract
     //Interesting: I wanted to save this as a bytes but got an error. string seems to be acceptable
     string public constant zonesSwarmAddress = "0a52f265d8d60a89de41a65069fa472ac3b130c269b4788811220b6546784920";
     string public constant name = "Digital Zone of Immaterial Pictorial Sensibility";
     string public constant symbol = "IKB";
-    uint8 public constant decimals = 0;
+    uint public constant decimals = 0;
     uint256 public maxSupplyPossible;
     bool first = true;
     uint256 public saleStartTime;
     uint256 public initialPrice = 10**16;   // IMPORTANT!!! DON'T FORGET TO CHANGE THIS WHEN YOU UPLOAD FINAL VERSION!!!
-   
-    uint8 public currentSeries;
+
+    uint public currentSeries;
     
-    uint8 public issuedToDate;
-    uint8 public totalSold;
-    uint8 public burnedToDate;
-   
+    uint public issuedToDate;
+    uint public totalSold;
+    uint public burnedToDate;
+
     
     // Each IBKSeries represents one of Klein's receipt books, or a series of issued tokens.
     struct IKBSeries {
 
-        uint256 price;
-        uint8 seriesSupply;
+        uint price;
+        uint seriesSupply;
     }
 
- IKBSeries[8] public series;                                            // An array of all 8 series
+    IKBSeries[8] public series;                                            // An array of all 8 series
 
     struct record {
-        uint8 edition;
         address addr;
-        uint256 price;
+        uint price;
         bool burned;
     }
-                    
- record[101] public records;                                            // An array of all 101 records
-    
-    
-        /* Initializes contract with initial supply tokens to the creator of the contract */
-        function Klein(uint256 _saleStartTime) {
-            saleStartTime = _saleStartTime;
-            currentSeries = 0;
-            series[0] = IKBSeries(initialPrice, 31);                    // the first series has unique values...
-            for(uint i = 1; i < series.length; i++){                    // ...while the next 7 can be defined in a for loop
-                series[i] = IKBSeries(series[i-1].price*2, 10);
-            }            
-            maxSupplyPossible = series[0].seriesSupply + 
-                                series[1].seriesSupply + 
-                                series[2].seriesSupply + 
-                                series[3].seriesSupply + 
-                                series[4].seriesSupply + 
-                                series[5].seriesSupply + 
-                                series[6].seriesSupply + 
-                                series[7].seriesSupply;
-            totalSold = 0;
-            burnedToDate = 0;
-        }
 
-        function totalSupply() constant returns (uint256 totalSupply) {
-          totalSupply = maxSupplyPossible;
-          return totalSupply;
-        }
-        
-        
-        function issueNewSeries() onlyOwner returns (string){
-            
-             if(!first){
+    record[101] public records;                                            // An array of all 101 records
+    
+    event UpdateRecord(uint indexed IKBedition, address holderAddress, uint256 price, bool burned);
+    
+    /* Initializes contract with initial supply tokens to the creator of the contract */
+    function Klein(uint256 _saleStartTime) {
+        saleStartTime = _saleStartTime;
+        currentSeries = 0;
+        series[0] = IKBSeries(initialPrice, 31);                    // the first series has unique values...
+        for(uint i = 1; i < series.length; i++){                    // ...while the next 7 can be defined in a for loop
+            series[i] = IKBSeries(series[i-1].price*2, 10);
+        }            
+        maxSupplyPossible = series[0].seriesSupply + 
+        series[1].seriesSupply + 
+        series[2].seriesSupply + 
+        series[3].seriesSupply + 
+        series[4].seriesSupply + 
+        series[5].seriesSupply + 
+        series[6].seriesSupply + 
+        series[7].seriesSupply;
+        totalSold = 0;
+        burnedToDate = 0;
+    }
+
+    function totalSupply() constant returns (uint256 totalSupply) {
+      totalSupply = maxSupplyPossible;
+      return totalSupply;
+  }
+
+
+    function issueNewSeries() onlyOwner returns (string){
+        if(!first){
             currentSeries++;    // the first time we run this function, don't run up the currentSeries counter. Keep it at 0
-            } else if (first){
-                first=false;    // ...but only let this work once.
-            } 
-            
-            if(issuedToDate >= maxSupplyPossible || issuedToDate + series[currentSeries].seriesSupply > maxSupplyPossible) revert();         //you can only issue a new series if there are no more tokens available to buy
-            if(now < saleStartTime) revert();                           //you can only issue a new series if the sale has started
-            if(balances[this] > 0) revert();                            //can only issue a new series if you've sold all the old ones
-            
-            balances[this] += series[currentSeries].seriesSupply;
-            issuedToDate += series[currentSeries].seriesSupply;
-    
-            return "Created Series";
+        } else if (first){
+            first=false;    // ...but only let this work once.
+        } 
+
+        if(issuedToDate >= maxSupplyPossible || issuedToDate + series[currentSeries].seriesSupply > maxSupplyPossible) revert();         //you can only issue a new series if there are no more tokens available to buy
+        if(now < saleStartTime) revert();                           //you can only issue a new series if the sale has started
+        if(balances[this] > 0) revert();                            //can only issue a new series if you've sold all the old ones
+
+        balances[this] += series[currentSeries].seriesSupply;
+        issuedToDate += series[currentSeries].seriesSupply;
+        
+        return "Created Series";
+    }
+
+
+    function buy() payable returns (uint[]){
+        //this function is probably OK
+        uint amount = msg.value / series[currentSeries].price;      // calculates the number of tokens the sender will buy
+        uint[] memory editionsPurchased = new uint[](amount);
+        if(balances[this] == 0) revert();
+        if(msg.value == 0) revert();
+        // if (balances[this] < amount && balances[this] > 1) {        // this section handles what happens if someone tries to buy more than the currently available supply
+        //     uint256 receivable = safeMult(balances[this], series[currentSeries].price);
+        //     uint256 returnable = msg.value - receivable;
+        //     amount = balances[this];        
+        //     if(!msg.sender.send(returnable)) revert();                          //IMPORTANT QUESTION: Is this a security risk? If the buy() function is called from a contract address rather than a wallet address, it may not have a fallback function. It could trap my send in malicious code...
+        // }
+        if (balances[this] < amount) revert();                      // checks if it has enough to sell. Essentially a double-check after the last block of code
+        
+        balances[msg.sender] += amount;                             // adds the amount to buyer's balance
+        balances[this] -= amount;                                   // subtracts amount from seller's balance
+        Transfer(this, msg.sender, amount);                         // execute an event reflecting the change
+
+        //now let's make a record of every sale
+        for(uint k = 0; k < amount; k++){
+            records[totalSold] = record(msg.sender, series[currentSeries].price, false);
+            totalSold++;
+            editionsPurchased[k] = totalSold;
         }
 
-        function specificTransfer(address _to, uint256 _value) returns (bool success) {
-            if (balances[msg.sender] >= _value && _value > 0) {
-                uint8 transferredRecord;                                //search for the highest-indexed edition owned by the sender
-                
-                for(uint8 k = 0; k < records.length; k++){
-                    if(records[k].addr == msg.sender) transferredRecord == k;
-                }
-        
-                balances[msg.sender] -= _value;
-                balances[_to] += _value;
-                records[transferredRecord].addr = msg.sender;           // update the records so that the record shows this person owns the 
-                Transfer(msg.sender, _to, _value);
-                return true;
+        return editionsPurchased;                                           // ends function and returns
+    }
+
+    function transfer(address _to, uint256 _value) returns (bool success) {
+        if (balances[msg.sender] >= _value && _value > 0) {
+            uint[] memory transferredRecord = new uint[](_value);                                        // make an array for all the records we're going to transfer
+            uint recordCounter = 0;                                                    // remember how many records we've already transferred
+            // search for the lowest-indexed edition owned by the sender
+            for(uint k = 0; k < records.length; k++){                                  // go through all the records
+                while(recordCounter < _value){                                          // do this for as long as there are tokens we're transferring
+                    if(records[k].addr == msg.sender && records[k].burned == false) {   // when you find a non- burned record that belongs to the sender
+                        transferredRecord[recordCounter] = k;                          // store that record index in the transferredRecord array
+                        recordCounter++;                                                // remember that you changed one record
+                    }                                                                   //
+                }                                                                       //
+            }                                                                           //
+
+            balances[msg.sender] -= _value;
+            balances[_to] += _value;
+
+            for(uint8 j = 0; j < _value; j++){                                          // for every token that was transferred
+                records[transferredRecord[j]].addr = _to;
+                UpdateRecord(transferredRecord[j], msg.sender, records[transferredRecord[j]].price, records[transferredRecord[j]].burned);                        // update the records so that the record shows this person owns the 
+            }                                                                           // 
+
+            Transfer(msg.sender, _to, _value);
+            return true;
             } else {
                 return false;
-          }
-        }
-    
-        function buy() payable returns (uint8[]){
-            //this function is probably OK
-            uint amount = msg.value / series[currentSeries].price;      // calculates the number of tokens the sender will buy
-            uint8[] memory editionsPurchased = new uint8[](amount);
-            if(balances[this] == 0) revert();
-            if(msg.value == 0) revert();
-            if (balances[this] < amount && balances[this] > 1) {        // this section handles what happens if someone tries to buy more than the currently available supply
-                uint256 receivable = safeMult(balances[this], series[currentSeries].price);
-                uint256 returnable = msg.value - receivable;
-                amount = balances[this];        
-                if(!msg.sender.send(returnable)) revert();                          //IMPORTANT QUESTION: Is this a security risk? If the buy() function is called from a contract address rather than a wallet address, it may not have a fallback function. It could trap my send in malicious code...
             }
-            if (balances[this] < amount) revert();                      // checks if it has enough to sell. Essentially a double-check after the last block of code
-            balances[msg.sender] += amount;                             // adds the amount to buyer's balance
-            balances[this] -= amount;                                   // subtracts amount from seller's balance
-            Transfer(this, msg.sender, amount);                         // execute an event reflecting the change
-
-            //now let's make a record of every sale
-            for(uint8 k = 0; k < amount; k++){
-                records[totalSold].edition = totalSold;
-                records[totalSold].addr = msg.sender;
-                records[totalSold].price = series[currentSeries].price;
-                records[totalSold].burned = false;
-                editionsPurchased[k] = totalSold;
-                totalSold++;
-            }
-
-            return editionsPurchased;                                           // ends function and returns
         }
-        
-            function transfer(address _to, uint256 _value) returns (bool success) {
-      if (balances[msg.sender] >= _value && _value > 0) {
 
-        uint8[] memory transferredRecord = new uint8[](_value);                                        // make an array for all the records we're going to transfer
-        uint8 recordCounter = 0;                                                    // remember how many records we've already transferred
-                                                                                    // search for the lowest-indexed edition owned by the sender
-        for(uint8 k = 0; k < records.length; k++){                                  // go through all the records
-            while(recordCounter < _value){                                          // do this for as long as there are tokens we're transferring
-                if(records[k].addr == msg.sender && records[k].burned == false) {   // when you find a non- burned record that belongs to the sender
-                    transferredRecord[recordCounter] == k;                          // store that record index in the transferredRecord array
-                    recordCounter++;                                                // remember that you changed one record
-                }                                                                   //
-            }                                                                       //
-        }                                                                           //
-
-        balances[msg.sender] -= _value;
-        balances[_to] += _value;
-
-        for(uint8 j = 0; j < _value; j++){                                          // for every token that was transferred
-            records[transferredRecord[j]].addr = msg.sender;                        // update the records so that the record shows this person owns the 
-        }                                                                           // 
-                                                                                 
-        Transfer(msg.sender, _to, _value);
-        return true;
-      } else {
-        return false;
-      }
+    function specificTransfer(address _to, uint _edition) returns (bool success) {
+        if (balances[msg.sender] > 0 && records[_edition].addr == msg.sender) {
+            balances[msg.sender] -= 1;
+            balances[_to] += 1;
+            records[_edition].addr = _to;           // update the records so that the record shows this person owns the 
+            Transfer(msg.sender, _to, 1);
+            UpdateRecord(_edition, _to, records[_edition].price, records[_edition].burned);
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    function getTokenHolder(uint8 searchedRecord) public constant returns(address){
+        return records[searchedRecord].addr;
+    }
+    
 
 
     function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {
       if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && _value > 0) {
         uint[] memory transferredRecord = new uint[](_value);                            // make an array for all the records we're going to transfer
         uint8 recordCounter = 0;                                                    // remember how many records we've already transferred
-                                                                                    // search for the lowest-indexed edition owned by the sender
+        // search for the lowest-indexed edition owned by the sender
         for(uint8 k = 0; k < records.length; k++){                                  // go through all the records
             while(recordCounter < _value){                                          // do this for as long as there are tokens we're transferring
-                if(records[k].addr == msg.sender && records[k].burned == false) {   // when you find a non- burned record that belongs to the sender
-                    transferredRecord[recordCounter] == k;                          // store that record index in the transferredRecord array
-                    recordCounter++;                                                // remember that you changed one record
+            if(records[k].addr == msg.sender && records[k].burned == false) {   // when you find a non- burned record that belongs to the sender
+                transferredRecord[recordCounter] == k;                          // store that record index in the transferredRecord array
+                recordCounter++;                                                // remember that you changed one record
                 }                                                                   //
-            }                                                                       //
-        }                                                                           //
-        
-        balances[_to] += _value;
-        balances[_from] -= _value;
-        allowed[_from][msg.sender] -= _value;
+                }                                                                       //
+                }                                                                           //
 
-        for(uint8 j = 0; j < _value; j++){                                          // for every token that was transferred
-            records[transferredRecord[j]].addr = msg.sender;                        // update the records so that the record shows this person owns the 
-        }                                                                           //
-                                                                              
-        Transfer(_from, _to, _value);
-        return true;
-      } else {
-        return false;
-      }
+                balances[_to] += _value;
+                balances[_from] -= _value;
+                allowed[_from][msg.sender] -= _value;
+
+                for(uint8 j = 0; j < _value; j++){                                          // for every token that was transferred
+                    records[transferredRecord[j]].addr = _to;                        // update the records so that the record shows this person owns the 
+                    }                                                                           //
+
+                    Transfer(_from, _to, _value);
+                    return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+    function redeemEther() onlyOwner{
+        //we can leave this blank for a while. This is lowest priority.
+        //msg.sender.send(this.balance);
+        if(!msg.sender.send(this.balance)) revert();  // send the eth to the Artist
+        //THE ABOVE IS USED IN OTHER CODE, as opposed to the first one. That's so that you address a failure condition
     }
-        
-        function redeemEther() onlyOwner{
-            //we can leave this blank for a while. This is lowest priority.
-            //msg.sender.send(this.balance);
-            if(!msg.sender.send(this.balance)) revert();  // send the eth to the Artist
-            //THE ABOVE IS USED IN OTHER CODE, as opposed to the first one. That's so that you address a failure condition
-        }
-        
-        function fund() payable onlyOwner{
-        }
-        
-        function ritual(uint8 _edition) returns (string){
 
-            if(records[_edition].edition == _edition && records[_edition].addr == msg.sender && !records[_edition].burned){
-                records[_edition].burned = true;
-                burnedToDate++;
-                balances[msg.sender]--;
-                uint256 halfTheGold = records[_edition].price/2;
-                if(!block.coinbase.send(halfTheGold)) revert();
+    function fund() payable onlyOwner{
+    }
+
+    function ritual(uint8 _edition) returns (string){
+
+        if(records[_edition].addr == msg.sender && !records[_edition].burned){
+            records[_edition].burned = true;
+            burnedToDate++;
+            balances[msg.sender]--;
+            uint256 halfTheGold = records[_edition].price/2;
+            if(!block.coinbase.send(halfTheGold)) revert();
             } else revert();
 
             return ("Mitchell F Chan");
         }
 
-        function() payable {
-            buy();
-        }
+    function() payable {
+        buy();
+    }
 }
-    
-    
-    
+
+
+
 
 
 
