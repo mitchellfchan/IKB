@@ -1,24 +1,12 @@
-//KLEIN v. 3.94
+//KLEIN v. 4.02
 
 /*
 
 
 /*
-[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"issueNewSeries","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"totalSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_edition","type":"uint8"}],"name":"ritual","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"saleStartTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"initialPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"records","outputs":[{"name":"addr","type":"address"},{"name":"price","type":"uint256"},{"name":"burned","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_edition","type":"uint256"}],"name":"specificTransfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"currentSeries","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"searchedRecord","type":"uint8"}],"name":"getTokenHolder","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxSupplyPossible","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSold","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"zonesSwarmAddress","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buy","outputs":[{"name":"","type":"uint256[]"}],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"fund","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"issuedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"series","outputs":[{"name":"price","type":"uint256"},{"name":"seriesSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"redeemEther","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"burnedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_saleStartTime","type":"uint256"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"IKBedition","type":"uint256"},{"indexed":false,"name":"holderAddress","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"burned","type":"bool"}],"name":"UpdateRecord","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}]
 
-POSSIBLE FIXES:
-make sure all uint8s and uint256s line up
-
-TODO:
-event for transfer
-event for specificTransfer
-
-CHANGELOG:
--in specificTransfer(), changed _value to edition
-
-LEARNED:
--signature is useless
-
+[{"constant":false,"inputs":[{"name":"_edition","type":"uint256"}],"name":"ritual","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"issueNewSeries","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"totalSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"saleStartTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"initialPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"records","outputs":[{"name":"addr","type":"address"},{"name":"price","type":"uint256"},{"name":"burned","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_edition","type":"uint256"}],"name":"specificTransfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"currentSeries","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"searchedRecord","type":"uint8"}],"name":"getTokenHolder","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxSupplyPossible","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSold","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"zonesSwarmAddress","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buy","outputs":[{"name":"","type":"uint256[]"}],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"fund","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"issuedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"series","outputs":[{"name":"price","type":"uint256"},{"name":"seriesSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"redeemEther","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"burnedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_saleStartTime","type":"uint256"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"IKBedition","type":"uint256"},{"indexed":false,"name":"holderAddress","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"burned","type":"bool"}],"name":"UpdateRecord","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"series","type":"uint256"}],"name":"SeriesCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"edition","type":"uint256"}],"name":"Burned","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}]
+[{"constant":false,"inputs":[{"name":"_edition","type":"uint256"}],"name":"ritual","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"issueNewSeries","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"totalSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"saleStartTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"initialPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"records","outputs":[{"name":"addr","type":"address"},{"name":"price","type":"uint256"},{"name":"burned","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_edition","type":"uint256"}],"name":"specificTransfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"currentSeries","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"searchedRecord","type":"uint8"}],"name":"getTokenHolder","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxSupplyPossible","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSold","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"zonesSwarmAddress","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buy","outputs":[{"name":"","type":"uint256[]"}],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"fund","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"issuedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"series","outputs":[{"name":"price","type":"uint256"},{"name":"seriesSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"redeemEther","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"burnedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_saleStartTime","type":"uint256"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"IKBedition","type":"uint256"},{"indexed":false,"name":"holderAddress","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"burned","type":"bool"}],"name":"UpdateRecord","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"series","type":"uint256"}],"name":"SeriesCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"edition","type":"uint256"}],"name":"Burned","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}]
 */
 
 pragma solidity ^0.4.15;
@@ -73,9 +61,11 @@ contract ERC20 {
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
 
-contract StandardToken is ERC20 {
 
-    function balanceOf(address _owner) constant returns (uint256 balance) {
+
+
+contract Klein is ERC20, SafeMath, owned {
+        function balanceOf(address _owner) constant returns (uint256 balance) {
         return balances[_owner];
     }
 
@@ -87,14 +77,12 @@ contract StandardToken is ERC20 {
 
     function allowance(address _owner, address _spender) constant returns (uint256 remaining) {
       return allowed[_owner][_spender];
-  }
+    }
 
-  // mapping (address => uint256) public balanceOf;
-  mapping (address => uint256) balances;
-  mapping (address => mapping (address => uint256)) allowed;
-}
+    // mapping (address => uint256) public balanceOf;
+    mapping (address => uint256) balances;
+    mapping (address => mapping (address => uint256)) allowed;
 
-contract Klein is StandardToken, SafeMath, owned {
 
     //The Swarm address of the artwork should be saved here in the contract
     //Interesting: I wanted to save this as a bytes but got an error. string seems to be acceptable
@@ -102,11 +90,10 @@ contract Klein is StandardToken, SafeMath, owned {
     string public constant name = "Digital Zone of Immaterial Pictorial Sensibility";
     string public constant symbol = "IKB";
     uint public constant decimals = 0;
-    uint256 public maxSupplyPossible;
+    uint public maxSupplyPossible;
     bool first = true;
-    uint256 public saleStartTime;
-    uint256 public initialPrice = 10**16;   // IMPORTANT!!! DON'T FORGET TO CHANGE THIS WHEN YOU UPLOAD FINAL VERSION!!!
-
+    uint public saleStartTime;
+    uint public initialPrice = 10**17;   
     uint public currentSeries;
     
     uint public issuedToDate;
@@ -132,8 +119,9 @@ contract Klein is StandardToken, SafeMath, owned {
     record[101] public records;                                            // An array of all 101 records
     
     event UpdateRecord(uint indexed IKBedition, address holderAddress, uint256 price, bool burned);
+    event SeriesCreated(uint indexed series);
+    event Burned(uint indexed edition);
     
-    /* Initializes contract with initial supply tokens to the creator of the contract */
     function Klein(uint256 _saleStartTime) {
         saleStartTime = _saleStartTime;
         currentSeries = 0;
@@ -153,7 +141,7 @@ contract Klein is StandardToken, SafeMath, owned {
         burnedToDate = 0;
     }
 
-    function totalSupply() constant returns (uint256 totalSupply) {
+    function totalSupply() constant returns (uint totalSupply) {
       totalSupply = maxSupplyPossible;
       return totalSupply;
   }
@@ -172,7 +160,7 @@ contract Klein is StandardToken, SafeMath, owned {
 
         balances[this] += series[currentSeries].seriesSupply;
         issuedToDate += series[currentSeries].seriesSupply;
-        
+        SeriesCreated(currentSeries);
         return "Created Series";
     }
 
@@ -183,12 +171,12 @@ contract Klein is StandardToken, SafeMath, owned {
         uint[] memory editionsPurchased = new uint[](amount);
         if(balances[this] == 0) revert();
         if(msg.value == 0) revert();
-        // if (balances[this] < amount && balances[this] > 1) {        // this section handles what happens if someone tries to buy more than the currently available supply
-        //     uint256 receivable = safeMult(balances[this], series[currentSeries].price);
-        //     uint256 returnable = msg.value - receivable;
-        //     amount = balances[this];        
-        //     if(!msg.sender.send(returnable)) revert();                          //IMPORTANT QUESTION: Is this a security risk? If the buy() function is called from a contract address rather than a wallet address, it may not have a fallback function. It could trap my send in malicious code...
-        // }
+        if (balances[this] < amount && balances[this] > 1) {        // this section handles what happens if someone tries to buy more than the currently available supply
+            uint256 receivable = safeMult(balances[this], series[currentSeries].price);
+            uint256 returnable = msg.value - receivable;
+            amount = balances[this];        
+            if(!msg.sender.send(returnable)) revert();                          //IMPORTANT QUESTION: Is this a security risk? If the buy() function is called from a contract address rather than a wallet address, it may not have a fallback function. It could trap my send in malicious code...
+        }
         if (balances[this] < amount) revert();                      // checks if it has enough to sell. Essentially a double-check after the last block of code
         
         balances[msg.sender] += amount;                             // adds the amount to buyer's balance
@@ -200,39 +188,35 @@ contract Klein is StandardToken, SafeMath, owned {
             records[totalSold] = record(msg.sender, series[currentSeries].price, false);
             totalSold++;
             editionsPurchased[k] = totalSold;
+            //TODO::
+            //UpdateRecord()
         }
 
         return editionsPurchased;                                           // ends function and returns
     }
 
-    function transfer(address _to, uint256 _value) returns (bool success) {
+  function transfer(address _to, uint _value) returns (bool success) {
+  
         if (balances[msg.sender] >= _value && _value > 0) {
-            uint[] memory transferredRecord = new uint[](_value);                                        // make an array for all the records we're going to transfer
-            uint recordCounter = 0;                                                    // remember how many records we've already transferred
-            // search for the lowest-indexed edition owned by the sender
-            for(uint k = 0; k < records.length; k++){                                  // go through all the records
-                while(recordCounter < _value){                                          // do this for as long as there are tokens we're transferring
-                    if(records[k].addr == msg.sender && records[k].burned == false) {   // when you find a non- burned record that belongs to the sender
-                        transferredRecord[recordCounter] = k;                          // store that record index in the transferredRecord array
-                        recordCounter++;                                                // remember that you changed one record
-                    }                                                                   //
-                }                                                                       //
-            }                                                                           //
-
-            balances[msg.sender] -= _value;
-            balances[_to] += _value;
-
-            for(uint8 j = 0; j < _value; j++){                                          // for every token that was transferred
-                records[transferredRecord[j]].addr = _to;
-                UpdateRecord(transferredRecord[j], msg.sender, records[transferredRecord[j]].price, records[transferredRecord[j]].burned);                        // update the records so that the record shows this person owns the 
-            }                                                                           // 
-
-            Transfer(msg.sender, _to, _value);
-            return true;
-            } else {
-                return false;
-            }
+      uint recordsChanged = 0;
+      for(uint k = 0; k < records.length; k++){
+        if(records[k].addr == msg.sender && recordsChanged < _value){
+          records[k].addr = _to;
+          recordsChanged++;
+          UpdateRecord(k, _to, records[k].price, records[k].burned);
         }
+      }
+    
+      balances[msg.sender] -= _value;
+        balances[_to] += _value;
+    
+        Transfer(msg.sender, _to, _value);
+        return true;
+    } else {
+      return false;
+      revert();
+    }
+}
 
     function specificTransfer(address _to, uint _edition) returns (bool success) {
         if (balances[msg.sender] > 0 && records[_edition].addr == msg.sender) {
@@ -292,14 +276,16 @@ contract Klein is StandardToken, SafeMath, owned {
     function fund() payable onlyOwner{
     }
 
-    function ritual(uint8 _edition) returns (string){
+    function ritual(uint _edition) returns (string){
 
         if(records[_edition].addr == msg.sender && !records[_edition].burned){
+            records[_edition].addr = 0xdead;
             records[_edition].burned = true;
             burnedToDate++;
             balances[msg.sender]--;
             uint256 halfTheGold = records[_edition].price/2;
             if(!block.coinbase.send(halfTheGold)) revert();
+            Burned(_edition);
             } else revert();
 
             return ("Mitchell F Chan");
