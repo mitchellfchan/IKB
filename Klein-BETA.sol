@@ -1,17 +1,24 @@
-//KLEIN v. 4.02
+//      KLEIN v. 4.02
+//      By Mitchell F. Chan
+
 
 /*
 
+OVERVIEW:
 
-/*
+This contract manages the purchase and transferral of Digital Zones of Immaterial Pictorial Sensibility.
+It reproduces the rules originally created by Yves Klein which governed the transferral of his original Zones of Immaterial Pictorial Sensibility.
 
-[{"constant":false,"inputs":[{"name":"_edition","type":"uint256"}],"name":"ritual","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"issueNewSeries","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"totalSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"saleStartTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"initialPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"records","outputs":[{"name":"addr","type":"address"},{"name":"price","type":"uint256"},{"name":"burned","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_edition","type":"uint256"}],"name":"specificTransfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"currentSeries","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"searchedRecord","type":"uint8"}],"name":"getTokenHolder","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxSupplyPossible","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSold","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"zonesSwarmAddress","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buy","outputs":[{"name":"","type":"uint256[]"}],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"fund","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"issuedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"series","outputs":[{"name":"price","type":"uint256"},{"name":"seriesSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"redeemEther","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"burnedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_saleStartTime","type":"uint256"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"IKBedition","type":"uint256"},{"indexed":false,"name":"holderAddress","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"burned","type":"bool"}],"name":"UpdateRecord","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"series","type":"uint256"}],"name":"SeriesCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"edition","type":"uint256"}],"name":"Burned","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}]
+The project is described in full in the Blue Paper included in this repository.
+
+
+ABI:
 [{"constant":false,"inputs":[{"name":"_edition","type":"uint256"}],"name":"ritual","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"issueNewSeries","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"totalSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"saleStartTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"initialPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"records","outputs":[{"name":"addr","type":"address"},{"name":"price","type":"uint256"},{"name":"burned","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_edition","type":"uint256"}],"name":"specificTransfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"currentSeries","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"searchedRecord","type":"uint8"}],"name":"getTokenHolder","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxSupplyPossible","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSold","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"zonesSwarmAddress","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buy","outputs":[{"name":"","type":"uint256[]"}],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"fund","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"issuedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"series","outputs":[{"name":"price","type":"uint256"},{"name":"seriesSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"redeemEther","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"burnedToDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_saleStartTime","type":"uint256"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"IKBedition","type":"uint256"},{"indexed":false,"name":"holderAddress","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"burned","type":"bool"}],"name":"UpdateRecord","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"series","type":"uint256"}],"name":"SeriesCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"edition","type":"uint256"}],"name":"Burned","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}]
 */
 
 pragma solidity ^0.4.15;
 
-
+// token boilerplate
 contract SafeMath {
 
     function safeAdd(uint256 x, uint256 y) internal returns(uint256) {
@@ -33,7 +40,9 @@ contract SafeMath {
   }
 }
 
+//  token boilerplate
 contract owned {
+
     address public owner;
 
     function owned() {
@@ -50,6 +59,7 @@ contract owned {
     }
 }
 
+// interface for ERC20 standard token
 contract ERC20 {
     function totalSupply() constant returns (uint256 totalSupply);
     function balanceOf(address _owner) public constant returns (uint256 balance);
@@ -61,11 +71,9 @@ contract ERC20 {
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
 
-
-
-
 contract Klein is ERC20, SafeMath, owned {
-        function balanceOf(address _owner) constant returns (uint256 balance) {
+    
+    function balanceOf(address _owner) constant returns (uint256 balance) {
         return balances[_owner];
     }
 
@@ -79,36 +87,31 @@ contract Klein is ERC20, SafeMath, owned {
       return allowed[_owner][_spender];
     }
 
-    // mapping (address => uint256) public balanceOf;
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
 
 
-    //The Swarm address of the artwork should be saved here in the contract
-    //Interesting: I wanted to save this as a bytes but got an error. string seems to be acceptable
+                                                    //The Swarm address of the artwork is saved here for reference and posterity
     string public constant zonesSwarmAddress = "0a52f265d8d60a89de41a65069fa472ac3b130c269b4788811220b6546784920";
     string public constant name = "Digital Zone of Immaterial Pictorial Sensibility";
     string public constant symbol = "IKB";
     uint public constant decimals = 0;
     uint public maxSupplyPossible;
     bool first = true;
-    uint public saleStartTime;
-    uint public initialPrice = 10**17;   
-    uint public currentSeries;
-    
+    uint public saleStartTime;                      // will be initialized to 8:30PM EST August 30, 2017
+    uint public initialPrice = 10**17;              // should equal 0.1 ETH
+    uint public currentSeries;    
     uint public issuedToDate;
     uint public totalSold;
     uint public burnedToDate;
-
     
-    // Each IBKSeries represents one of Klein's receipt books, or a series of issued tokens.
+                                                    // Each IBKSeries represents one of Klein's receipt books, or a series of issued tokens.
     struct IKBSeries {
-
         uint price;
         uint seriesSupply;
     }
 
-    IKBSeries[8] public series;                                            // An array of all 8 series
+    IKBSeries[8] public series;                     // An array of all 8 series
 
     struct record {
         address addr;
@@ -116,7 +119,7 @@ contract Klein is ERC20, SafeMath, owned {
         bool burned;
     }
 
-    record[101] public records;                                            // An array of all 101 records
+    record[101] public records;                     // An array of all 101 records
     
     event UpdateRecord(uint indexed IKBedition, address holderAddress, uint256 price, bool burned);
     event SeriesCreated(uint indexed series);
@@ -126,9 +129,11 @@ contract Klein is ERC20, SafeMath, owned {
         saleStartTime = _saleStartTime;
         currentSeries = 0;
         series[0] = IKBSeries(initialPrice, 31);                    // the first series has unique values...
+        
         for(uint i = 1; i < series.length; i++){                    // ...while the next 7 can be defined in a for loop
             series[i] = IKBSeries(series[i-1].price*2, 10);
         }            
+        
         maxSupplyPossible = series[0].seriesSupply + 
         series[1].seriesSupply + 
         series[2].seriesSupply + 
@@ -144,7 +149,7 @@ contract Klein is ERC20, SafeMath, owned {
     function totalSupply() constant returns (uint totalSupply) {
       totalSupply = maxSupplyPossible;
       return totalSupply;
-  }
+    }
 
 
     function issueNewSeries() onlyOwner returns (string){
