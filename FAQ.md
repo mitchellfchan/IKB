@@ -2,9 +2,9 @@
 
 ## Can I visit the Zones of Immaterial Pictorial Sensibility?
 Yes, the artwork is now deployed to Swarm. Visit it at:
-```
-http://swarm-gateways.net/bzz:/0a52f265d8d60a89de41a65069fa472ac3b130c269b4788811220b6546784920
-```
+
+[http://swarm-gateways.net/bzz:/0a52f265d8d60a89de41a65069fa472ac3b130c269b4788811220b6546784920]
+
 This address is also hard-coded into the contract itself for posterity.
 
 ## When will IKB be available for sale?
