@@ -1,7 +1,7 @@
 # IKB FAQ
 
 ## Can I visit the Zones of Immaterial Pictorial Sensibility?
-Yes, the artwork itself is now deployed to Swarm. Visit it at:
+Yes, the artwork is now deployed to Swarm. Visit it at:
 ```
 http://swarm-gateways.net/bzz:/0a52f265d8d60a89de41a65069fa472ac3b130c269b4788811220b6546784920
 ```
@@ -24,7 +24,7 @@ Once your browser is watching the contract, you'll be able to see all sorts of r
 ### To purchase IKB, call the buy() function and send a quantity of ETH. The tokens you buy are automatically credited to your account.
 
 ### Be sure to include enough gas in your transaction. 
-The IKB contract uses more computation than typical token contracts. It is recommended that you send up to 500000 gas to ensure your transaction is executed. Note that even this amount of gas will result in a transaction fee costing less than a penny.
+The IKB contract uses more computation than typical token contracts. It is recommended that you send up to 500000 gas to ensure your transaction is executed. Note that even this amount of gas will result in a transaction fee costing less than a penny. The IKB contract is unlike most other token contracts in that the more tokens you are purchasing, the more gas is required to run the transaction. This is because the IKB contract produces detailed records of provenance for each token sold, which requires a certain amount of gas per token.
 
 ## How many IKB are initially available?
 The first series of IKB consists of 31 tokens, and each costs 0.1 ΞTH. Each subsequent series consists of only 10 tokens, at a price double that of the previous series. The contract will automatically return change if you try to purchase more tokens than are available, or if you send extra ΞTH. For more information, consult the blue paper.
@@ -36,7 +36,7 @@ Number of Decimals: 0
 Symbol: IKB
 
 ## What wallets support IKB?
-IKB is an ERC20 token, and can be stored in any wallet which supprts ERC20 tokens. The most popular hardware wallet which will store IKB is the Ledger Nano S, and the most popular online wallet is MyEtherWallet. Node Wallets such as Mist and Parity are also popular.
+IKB complies with the ERC20 standard, and thus can be stored in any wallet which supprts ERC20 tokens. The artist cannot offer any recommendations for specific wallets, but will point out that the most popular IKB-compatible hardware wallet is the Ledger Nano S, and the most popular online wallet is MyEtherWallet. Node wallets such as Mist and Parity will also allow you to purchase IKB and view your token balance.
 
 ## When a series sells out, when will a new series be issued?
 The issuance of future series is at the discretion of the artist. It is hard-coded into the contract that only 101 tokens will ever be created, but following the first series of 31, the remaining 80 tokens may not be released for years. However, it is the artists intention to satisfy initial demand for the artwork, so if the first series does sell out quickly, the artist will likely issue another shortly after the sell-out (at the hard-coded price increase.)
