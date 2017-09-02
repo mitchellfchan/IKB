@@ -31,9 +31,11 @@ The first series of IKB consists of 31 tokens, and each costs 0.1 ΞTH. Each sub
 
 ## How do I view IKB tokens in my wallet?
 You can view IKB token balance in your non-hosted Ethereum wallet that supports ERC20 tokens by watching the IKB contract.
+```
 IKB Smart Contract address: 0x88ae96845e157558ef59e9ff90e766e22e480390
 Number of Decimals: 0
 Symbol: IKB
+```
 
 ## What wallets support IKB?
 IKB complies with the ERC20 standard, and thus can be stored in any wallet which supprts ERC20 tokens. The artist cannot offer any recommendations for specific wallets, but will point out that the most popular IKB-compatible hardware wallet is the Ledger Nano S, and the most popular online wallet is MyEtherWallet. Node wallets such as Mist and Parity will also allow you to purchase IKB and view your token balance.
