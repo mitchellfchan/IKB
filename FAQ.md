@@ -46,9 +46,11 @@ The issuance of future series is at the discretion of the artist. It is hard-cod
 ## Can I burn my IKB to obtain the true immaterial value of the artwork?
 Yes, call the ritual() function in your browser. Your IKB is destroyed and half the ΞTH you paid to the contract is "thrown in the river," or sent to an Ethereum address from which any funds are verifiably irretrievable.
 
-<h2>IKB TOKEN SALE TERMS</h2>
+<hr>
+
+<h1>IKB TOKEN SALE TERMS</h1>
 		
-	<p><span>General Guidelines</span></p>
+<p><span>General Guidelines</span></p>
 <ol>
 <li><span >The purchase of each Digital Zone of Immaterial Pictorial Sensibility is recorded through the transfer of a digital token. The token is created and transacted through a smart-contract I have written and deployed on the ethereum blockchain. The address of the smart contract will be posted publicly three days prior to the token sale, and can be reviewed or audited by anyone.</span></li>
 <li><span>The token is denoted by the symbol IKB. This paper will hereby use &#8220;IKB&#8221; as a reference to the token.</span></li>
