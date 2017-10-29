@@ -43,8 +43,61 @@ IKB complies with the ERC20 standard, and thus can be stored in any wallet which
 ## When a series sells out, when will a new series be issued?
 The issuance of future series is at the discretion of the artist. It is hard-coded into the contract that only 101 tokens will ever be created, but following the first series of 31, the remaining 80 tokens may not be released for years. However, it is the artists intention to satisfy initial demand for the artwork, so if the first series does sell out quickly, the artist will likely issue another shortly after the sell-out (at the hard-coded price increase.)
 
-## Can I burn my IKB to obtain the true immaterial value of the artwork
+## Can I burn my IKB to obtain the true immaterial value of the artwork?
 Yes, call the ritual() function in your browser. Your IKB is destroyed and half the ΞTH you paid to the contract is "thrown in the river," or sent to an Ethereum address from which any funds are verifiably irretrievable.
+
+<h2>IKB TOKEN SALE TERMS</h2>
+		
+	<p><span>General Guidelines</span></p>
+<ol>
+<li><span >The purchase of each Digital Zone of Immaterial Pictorial Sensibility is recorded through the transfer of a digital token. The token is created and transacted through a smart-contract I have written and deployed on the ethereum blockchain. The address of the smart contract will be posted publicly three days prior to the token sale, and can be reviewed or audited by anyone.</span></li>
+<li><span>The token is denoted by the symbol IKB. This paper will hereby use &#8220;IKB&#8221; as a reference to the token.</span></li>
+<li><span >Unlike most other digital currencies or tokens, IKB is indivisible. That is to say, it is impossible to be in possession of 2.5 or 0.314 IKB. Each IKB is an artwork, and one wouldn&#8217;t cut a painting into individual pieces.</span></li>
+<li><span>IKB complies with ethereum&#8217;s ERC-20 standard, and therefore can be stored in any wallet or account which holds Ether or ethereum tokens. Holders will be able to see their balances in these wallets, and I consider the display of an IKB balance to be a “display value” of the artwork.</span></li>
+</ol>
+<p><span>Issuance</span></p>
+<ol>
+<li><span  >101 Digital Zones of Immaterial Pictorial Sensibility will be issued.</span></li>
+<li><span  >31 Digital Zones will be issued in the first series, and 10 in each subsequent series.</span></li>
+<li><span  >The first series will be released at 00:30 UTC on August 31, 2017 (20:30 EST August 30) on the ethereum Homestead network.</span></li>
+<li><span  >When a series is released, all tokens in that series are available simultaneously. After that series sells out, no more IKB are available until the artist calls a function to release the next series. For example, upon the release of Series 0, 31 IKB will be available. Only after those 31 IKB are sold may I release a new series to make another 10 IKB available at a higher price. However, I reserve the right to withhold the release of new series indefinitely.</span></li>
+<li><span  >The above policy means that, after Series 0, there may only ever be a maximum of 10 unsold IKB available for purchase at a time.</span></li>
+<li><span  >The sale of Digital Zones is intended to last at least as long as my own life, and thus, the final series of IKB may not be released for years or decades. It is likely that I will release enough series of IKB tokens early on to satisfy whatever initial demand exists, and then spread out the release of subsequent series over many years, probably to correspond with the opening of special exhibitions.</span></li>
+</ol>
+<p><span  >How To Purchase IKB</span></p>
+<ol>
+<li><span  >A detailed guide on how to purchase IKB will be posted at mitchellfchan.com approximately one week prior to the beginning of the sale for Series 0. The guide will include the address of the IKB smart contract, instructions on how to purchase ether, and a guide on how to trade ether for IKB over a variety of client interfaces including Parity, Mist, and MyEtherWallet.</span></li>
+<li><span  >IKB may only be purchased with the digital currency ether.</span></li>
+<li><span  >Klein did not specify a set price for Zones sold in Series 0, but in keeping with his theme of doubling the price of each series, I have chosen to set the price of the 31 Digital Zones of Series 0 at 0.1 ΞTH. At the time of publication, 0.1 ΞTH is valued at $29.6 USD.</span></li>
+<li><span  >The prices for each subsequent series double. The rate schedule is thus:<br />
+</span><span  >Series 0 (31 works): 0.1 ΞTH</span><br />
+<span  > Series 1 (10 works): 0.2 ΞTH</span><br />
+<span  > Series 2 (10 works): 0.4 ΞTH</span><br />
+<span  > Series 3 (10 works): 0.8 ΞTH</span><br />
+<span  > Series 4 (10 works): 1.6 ΞTH</span><br />
+<span  > Series 5 (10 works): 3.2 ΞTH</span><br />
+<span  > Series 6 (10 works): 6.4 ΞTH</span><br />
+<span  > Series 7 (10 works): 12.8 ΞTH</span></li>
+</ol>
+<p><span  >The Ritual</span></p>
+<ol>
+<li><span  >The smart contract includes a function which reproduces the effects of Klein’s ritual, and can be executed by any holder of IKB. Upon calling the function, the user obtains the true immaterial value of the Digital Zone of Immaterial Pictorial Sensibility.</span></li>
+<li><span  >When the holder executes this function of the contract, their IKB token is destroyed and a quantity of ether equivalent to half the purchase price of that token is removed from my own account.</span></li>
+<li><span  >When the ritual function is called, the holder’s IKB balance is shown to be reduced by one, and the balance of the smart contract does not increase commensurately—that token is removed from circulation. Another IKB token may not be issued in its place. The IKB smart contract records which tokens have been destroyed.</span></li>
+<li><span  >In lieu of throwing gold into the river, my own ether is thrown to the miner of the block on which the ritual function is executed.</span></li>
+<li><span  >When calling the ritual function, only one IKB is burned at a time. If a holder holds more than one IKB and wishes to obtain the true immaterial of more than one Digital Zone, they must call the function multiple times and each time specify which Digital Zone they are redeeming.</span></li>
+<li><span  >The smart contract keeps an internal ledger of each transaction to ensure the amount of ether burned corresponds to the purchase price of the particular Digital Zone being redeemed.</span></li>
+<li><span  >My own presence is not required to enact the ritual, a holder may easily perform it on their own. The features of the smart contract allow for a completely trustless exchange of this immaterial value. The smart-contract function satisfies all the requirements of the ritual, and does undoubtedly result in the transfer of the immaterial value. The token is verifiably destroyed and the ether is verifiably thrown back to a mining pool. Klein’s requirement for witnesses to the ritual is also satisfied: when the function is executed on the blockchain, it is witnessed by thousands of connected nodes who each confirm the validity of the ritual.</span></li>
+<li><span  >Despite my presence not being necessary, I will be available to perform the ritual in person with an IKB holder who chooses to include me in the ritual. If this option is requested by the IKB holder, we will meet near a body of water, with the holder bringing their token on a laptop, phone, or hardware wallet. We will call the function to exchange the immaterial value of the artwork together.</span></li>
+<li><span  >Following the execution of this function, the true immaterial value of the artwork belongs intrinsically to the owner.</span></li>
+</ol>
+<p><span  >Trading</span></p>
+<ol>
+<li><span  >Klein&#8217;s original receipts explicitly state that a receipt for a Zone may only be resold for double its original purchase price. I have read an account claiming that any resale for double the purchase price was required to involve Mr. Klein himself as an intermediary. However, I could not find evidence of this requirement in Klein&#8217;s original writings, and so I have chosen to disregard it and allow for IKB to be resold without myself acting as a facilitator. And obviously, following Mr. Klein&#8217;s death in 1962, Zone receipts were resold and it would have been impossible to enforce this requirement. However, owners of IKB are still instructed to sell their tokens for no less than double their purchase price.</span></li>
+<li><span  >Because of the low issuance of IKB and its indivisibility, there will only ever be a maximum of 101 holders of IKB. Patrons looking to invest in IKB should be aware that due to this extreme illiquidity, any secondary market transactions of IKB will likely be conducted through private sales. I have no intention of lobbying any exchanges to list IKB.</span></li>
+<li><span  >Despite the indivisibility of the token itself, emerging crypto fund management applications such as Prism or Melon will make it possible for fund managers to securitize their holdings of IKB and break that security into any number of tranches. Just like managers of traditional investment funds, I expect that the emerging class of digital asset fund managers will diversify their investment portfolios to include ownership of artworks. The IKB represents the first tokenized artwork in the class of digital assets, and as such may be seen as an investment proposition for these portfolios. However, I warn any fund manager considering securitizing IKB that the immaterial value of the artwork may not be transferred once the ritual has occurred, and likely cannot be redeemed in tranches.</span></li>
+</ol>
+
 
 ## ABI: 
 
