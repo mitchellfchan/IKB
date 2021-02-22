@@ -4,10 +4,21 @@ Note: This document updates and edits the original FAQ. The original FAQ is stil
 
 ## What is this?
 
-*Digital Zones of Immaterial Pictorial Sensibility* is the first conceptual artwork to be hosted on the blockchain and presented in a traditional art gallery. It was deployed by [Mitchell F Chan](http://www.mitchellfchan.com) on August 29, 2017. It was [unveiled at InterAccess Media Arts Centre in Toronto, Canada](https://interaccess.org/event/2017/bitcoin-ethereum-and-conceptual-art), and later presented at [Kent State University](https://www.kent.edu/art/event/mitchell-f-chan-artist-talk). The project  uses blockchain technology and to re-examine art-specific definitions of immateriality and value. The artwork takes Yves Klein's *Zones of Immaterial Pictorial Sensibility* as its reference point. A full description of the project is presented in [*The Blue Paper*](https://github.com/mitchellfchan/IKB/blob/master/Digital-Zones-Of-Immaterial-Pictorial-Sensibility-Blue-Paper.pdf) (included as part of this Github repository.) This paper takes the format of a whitepaper, and attempts to outline a history of homologies between an artistic and financial definitions of value, and how those definitions became untethered from physical referents. It is *strongly* recommended than anyone interested in this project, or in art on the blockchain in general, read the *Blue Paper.* *Digital Zones* is a conceptual piece, and the artist has made an earnest attempt to communicate the artistic intent of the piece through this document.
+*Digital Zones of Immaterial Pictorial Sensibility* is the one of the first tokenized conceptual artworks to be hosted on the blockchain and presented in a traditional art gallery. It was deployed by [Mitchell F Chan](http://www.mitchellfchan.com) on August 29, 2017. It was [unveiled at InterAccess Media Arts Centre in Toronto, Canada](https://interaccess.org/event/2017/bitcoin-ethereum-and-conceptual-art), and later presented at [Kent State University](https://www.kent.edu/art/event/mitchell-f-chan-artist-talk). The project  uses blockchain technology and to re-examine art-specific definitions of immateriality and value. The artwork takes Yves Klein's *Zones of Immaterial Pictorial Sensibility* as its reference point. A full description of the project is presented in [*The Blue Paper*](https://github.com/mitchellfchan/IKB/blob/master/Digital-Zones-Of-Immaterial-Pictorial-Sensibility-Blue-Paper.pdf) (included as part of this Github repository.) This paper takes the format of a whitepaper, and attempts to outline a history of homologies between an artistic and financial definitions of value, and how those definitions became untethered from physical referents. It is *strongly* recommended than anyone interested in this project, or in art on the blockchain in general, read the *Blue Paper.* *Digital Zones* is a conceptual piece, and the artist has made an earnest attempt to communicate the artistic intent of the piece through this document.
 
 
 ## How do I purchase IKB?
+
+**PLEASE NOTE THE FOLLOWING! (UPDATED FEB 22, 2021)**
+
+- ALL SERIES 0 IKB ARE SOLD OUT
+- No further series releases will be announced.  
+- The release of series 1-7 is intended to be spread out over the course of my lifetime, with series 7 probably not being released until after my death.
+- There is NO front-end DApp for purchasing IKB!!! And there probably never will be. To purchase IKB, buyers had to interface with the contract through the methods outlined in the original FAQ. This is/was intentional, as it is important that there be some kind of ritual/friction in the purchasing of the Zones.
+- I might make IKB tokens displayable/tradeable on OpenSea; I haven't decided yet. Because these tokens are ERC-20, predating the ERC-721 standard, they're not diplayable on OpenSea by default.
+- Since the original deployment of IKB, Swarm has sadly ceased to exist. The display space of the zones is now located at mitchellfchan.com/zonesExhibit . Note that this is an empty white digital space.
+
+**OK, so here are the original instructions for purchasing IKB, as they were written in August 2017:**
 
 Using Mist, MyEtherWallet, Parity, or the web 3.0 browser of your choice, watch the contract address at 
 ```
